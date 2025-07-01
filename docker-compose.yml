@@ -1,0 +1,27 @@
+services:
+  django:
+    build:
+      context: .
+      container_name: django
+      image: tahaalghutani/django-fastapi
+      dockerfile: Dockerfile
+    expose:
+      - "8000"
+    volumes:
+      - .:/app
+    networks:
+      - fastapi_network
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - fastapi_app
+    networks:
+      - fastapi_network
+networks:
+  fastapi_network:
+    driver: bridge
