@@ -2,9 +2,10 @@ services:
   django:
     build:
       context: .
-      container_name: django
-      image: tahaalghutani/django-fastapi
       dockerfile: Dockerfile
+    container_name: django
+    image: tahaalghutani/django-fastapi
+      
     expose:
       - "8000"
     volumes:
@@ -19,7 +20,7 @@ services:
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
-      - fastapi_app
+      - django
     networks:
       - fastapi_network
 networks:
